@@ -2,11 +2,13 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Gui {
+public class Gui implements ActionListener {
 
     JFrame frame;
-    JPanel student;
+    JPanel addstudentPnl,viewStudentPnl;
     JButton addStudent,viewStudent,addTeacher,viewTeacher,addCourse,viewCourse,assignTeacherToCourse,assignStudentToCourse;
 
     public Gui()
@@ -17,7 +19,8 @@ public class Gui {
         buttonInit();
 
         // panel
-        studentPanelInit();
+        addStudentPanelInit();
+        viewStudentPanelInit();
 
         frame.setSize(1200,900);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,60 +33,125 @@ public class Gui {
         addStudent =new JButton("Add Student");
         addStudent.setBounds(50,30,120,40);
         addStudent.setFont(new Font("Serif", Font.BOLD, 14));
+        addStudent.addActionListener(this);
         frame.add(addStudent);
 
         viewStudent =new JButton("View Student");
         viewStudent.setBounds(180,30,120,40);
         viewStudent.setFont(new Font("Serif", Font.BOLD, 14));
+        viewStudent.addActionListener(this);
         frame.add(viewStudent);
 
 
         addTeacher =new JButton("Add Teacher");
         addTeacher.setBounds(320,30,120,40);
         addTeacher.setFont(new Font("Serif", Font.BOLD, 14));
+        addTeacher.addActionListener(this);
         frame.add(addTeacher);
 
         viewTeacher =new JButton("View Teacher");
         viewTeacher.setBounds(460,30,120,40);
         viewTeacher.setFont(new Font("Serif", Font.BOLD, 14));
+        viewTeacher.addActionListener(this);
         frame.add(viewTeacher);
 
         addCourse =new JButton("Add Course");
         addCourse.setBounds(600,30,120,40);
         addCourse.setFont(new Font("Serif", Font.BOLD, 14));
+        addCourse.addActionListener(this);
         frame.add(addCourse);
 
         viewCourse =new JButton("View Course");
         viewCourse.setBounds(740,30,120,40);
         viewCourse.setFont(new Font("Serif", Font.BOLD, 14));
+        viewCourse.addActionListener(this);
         frame.add(viewCourse);
 
         assignTeacherToCourse =new JButton("Assign Teacher");
         assignTeacherToCourse.setBounds(880,30,120,40);
         assignTeacherToCourse.setFont(new Font("Serif", Font.BOLD, 14));
+        assignTeacherToCourse.addActionListener(this);
         frame.add(assignTeacherToCourse);
 
         assignStudentToCourse =new JButton("Assign Student");
         assignStudentToCourse.setBounds(1020,30,120,40);
         assignStudentToCourse.setFont(new Font("Serif", Font.BOLD, 14));
+        assignStudentToCourse.addActionListener(this);
         frame.add(assignStudentToCourse);
 
     }
 
-    public void studentPanelInit()
+    public void addStudentPanelInit()
     {
-        student =new JPanel();
-        student.setBounds(100,100,1000,600);
-        student.setBackground(Color.lightGray);
+        addstudentPnl =new JPanel();
+        addstudentPnl.setBounds(100,100,1000,600);
+        addstudentPnl.setBackground(Color.lightGray);
 
-        /*
-        JButton b1=new JButton("Button 1");
-        b1.setBounds(50,100,80,30);
-        b1.setBackground(Color.yellow);
-        student.add(b1);*/
+        JLabel l1=new JLabel("add Student");
+        l1.setBounds(50,50, 100,30);
+        addstudentPnl.add(l1);
 
-        frame.add(student);
+        frame.add(addstudentPnl);
     }
 
+    public void viewStudentPanelInit()
+    {
+        viewStudentPnl=new JPanel();
+        viewStudentPnl.setBounds(100,100,1000,600);
+        viewStudentPnl.setBackground(Color.lightGray);
+
+        JLabel l2=new JLabel("View Student");
+        l2.setBounds(50,50, 100,30);
+        viewStudentPnl.add(l2);
+
+        frame.add(viewStudentPnl);
+    }
+
+    public void showPanel()
+    {
+
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == addStudent)
+        {
+            hidePanel();
+            addstudentPnl.setVisible(true);
+        }
+        else if(e.getSource() == viewStudent)
+        {
+            hidePanel();
+            viewStudentPnl.setVisible(true);
+        }
+        else if(e.getSource() == addTeacher)
+        {
+
+        }
+        else if(e.getSource() == viewTeacher)
+        {
+
+        }
+        else if(e.getSource() == addCourse)
+        {
+
+        }
+        else if(e.getSource() == assignTeacherToCourse)
+        {
+
+        }
+        else if(e.getSource() == assignStudentToCourse)
+        {
+
+        }
+    }
+
+    public void hidePanel()
+    {
+        addstudentPnl.setVisible(false);
+        viewStudentPnl.setVisible(false);
+    }
 
 }
