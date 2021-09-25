@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class Gui implements ActionListener {
 
     JFrame frame;
-    JPanel addstudentPnl,viewStudentPnl;
+    JPanel addstudentPnl,viewStudentPnl,addTeacherPnl;
     JButton addStudent,viewStudent,addTeacher,viewTeacher,addCourse,viewCourse,assignTeacherToCourse,assignStudentToCourse;
 
     public Gui()
@@ -21,6 +21,7 @@ public class Gui implements ActionListener {
         // panel
         addStudentPanelInit();
         viewStudentPanelInit();
+        addTeacherPanelInit();
 
         frame.setSize(1200,900);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,6 +82,8 @@ public class Gui implements ActionListener {
 
     }
 
+
+    // panel init
     public void addStudentPanelInit()
     {
         addstudentPnl =new JPanel();
@@ -107,9 +110,17 @@ public class Gui implements ActionListener {
         frame.add(viewStudentPnl);
     }
 
-    public void showPanel()
+    public void addTeacherPanelInit()
     {
+        addTeacherPnl=new JPanel();
+        addTeacherPnl.setBounds(100,100,1000,600);
+        addTeacherPnl.setBackground(Color.lightGray);
 
+        JLabel l2=new JLabel("Add Teacher");
+        l2.setBounds(50,50, 100,30);
+        addTeacherPnl.add(l2);
+
+        frame.add(addTeacherPnl);
     }
 
 
@@ -128,7 +139,8 @@ public class Gui implements ActionListener {
         }
         else if(e.getSource() == addTeacher)
         {
-
+            hidePanel();
+            addTeacherPnl.setVisible(true);
         }
         else if(e.getSource() == viewTeacher)
         {
@@ -152,6 +164,7 @@ public class Gui implements ActionListener {
     {
         addstudentPnl.setVisible(false);
         viewStudentPnl.setVisible(false);
+        addTeacherPnl.setVisible(false);
     }
 
 }
