@@ -1,7 +1,7 @@
 File Format
 -------------------------------------
 
-Student@studentID:FullName:CourseName1;CourseName2;......}
+Student@studentID:FullName:CourseName1;CourseName2;attandence:90%;grade:A++......}
 
 Teacher@teacherID:FullName:CourseName1;CourseName2;......
 

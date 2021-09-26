@@ -131,7 +131,7 @@ public class DataController {
             FileWriter writer = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            bufferedWriter.write("Student@"+studentID+":"+studentFullName+":"+listOfCourse);
+            bufferedWriter.write("Student@"+studentID+":"+studentFullName+":"+listOfCourse + "attendance:90%;grade:A++");
             bufferedWriter.newLine();
 
             bufferedWriter.close();
@@ -151,7 +151,7 @@ public class DataController {
             bufferedWriter.newLine();
 
             bufferedWriter.close();
-        } catch (IOException e) 
+        } catch (IOException e)
         {
             e.printStackTrace();
         }

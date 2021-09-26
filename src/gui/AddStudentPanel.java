@@ -152,7 +152,7 @@ public class AddStudentPanel extends JPanel implements ActionListener {
                 msgLable.setText("Student id must be only number.");
             }
         } else {
-            msgLable.setText("All fields are mandatory.");
+            msgLable.setText("All fields are mendatory.");
         }
     }
 }
