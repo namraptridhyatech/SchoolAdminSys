@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.UtilityClass.*;
+import util.UtilityClass.*;
 
 public class DataController {
 
@@ -46,6 +46,83 @@ public class DataController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean checkStudent(String studentID)
+    {
+        boolean isStudentAvailable=false;
+        try {
+
+            FileReader reader = new FileReader(file);
+            bufferedReader = new BufferedReader(reader);
+            String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    String[] student = line.split("@");
+                    if(student[0].equals("Student"))
+                    {
+                        String[] studentdata = student[1].split(":");
+                        if(studentID.equals(studentdata[0]))
+                        {
+                            isStudentAvailable=true;
+                            break;
+                        }
+                    }
+                    if(isStudentAvailable)break;
+                }
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }catch (Exception ex)
+        {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            printConsole(ex.getMessage());
+        }
+        return isStudentAvailable;
+    }
+
+
+    public boolean checkTeacher(String studentID)
+    {
+        boolean isteacherAvailable=false;
+        try {
+
+            FileReader reader = new FileReader(file);
+            bufferedReader = new BufferedReader(reader);
+            String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    String[] teacher = line.split("@");
+                    if(teacher[0].equals("Teacher"))
+                    {
+                        String[] studentdata = teacher[1].split(":");
+                        if(studentID.equals(studentdata[0]))
+                        {
+                            isteacherAvailable=true;
+                            break;
+                        }
+                    }
+                    if(isteacherAvailable)break;
+                }
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }catch (Exception ex)
+        {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            printConsole(ex.getMessage());
+        }
+        return isteacherAvailable;
     }
 
     public void addStudent(String studentID,String studentFullName,String listOfCourse){
