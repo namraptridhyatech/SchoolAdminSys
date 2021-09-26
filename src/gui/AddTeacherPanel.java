@@ -42,22 +42,22 @@ public class AddTeacherPanel extends JPanel implements ActionListener {
         add(teacherIdLable, constraints);
 
         constraints.gridx = 1;
-        addTeacher_teacherId = new JTextField("Please enter teacher");
-        addTeacher_teacherId.setPreferredSize(addTeacher_teacherId.getPreferredSize());
-        addTeacher_teacherId.setText("");
+        addTeacher_teacherId = new JTextField("");
+        addTeacher_teacherId.setColumns(10);
         addTeacher_teacherId.setFont(new Font("Serif", Font.PLAIN, 14));
         addTeacher_teacherId.setSize(300, 100);
         add(addTeacher_teacherId, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
-        JLabel sNameLable = new JLabel("Teacher Name");
-        sNameLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sNameLable.setSize(300, 100);
-        add(sNameLable, constraints);
+        JLabel teacherNameLable = new JLabel("Teacher Name");
+        teacherNameLable.setFont(new Font("Serif", Font.PLAIN, 14));
+        teacherNameLable.setSize(300, 100);
+        add(teacherNameLable, constraints);
 
         constraints.gridx = 1;
-        addTeacher_teacherName = new JTextField("Enter teacher name");
+        addTeacher_teacherName = new JTextField("");
+        addTeacher_teacherName.setColumns(10);
         addTeacher_teacherName.setText("");
         addTeacher_teacherName.setFont(new Font("Serif", Font.PLAIN, 14));
         addTeacher_teacherName.setSize(300, 100);
