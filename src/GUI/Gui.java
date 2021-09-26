@@ -12,14 +12,22 @@ import java.util.Set;
 
 public class Gui implements ActionListener {
 
+    DataController DB;
+
     JFrame frame;
     JPanel addstudentPnl, viewStudentPnl, addTeacherPnl, viewTeacherPnl, addCoursePnl, viewCoursePnl,
             assignTeacherToCoursePnl, assignStudentToCoursePnl;
     JButton addStudent, viewStudent, addTeacher, viewTeacher, addCourse, viewCourse, assignTeacherToCourse,
             assignStudentToCourse;
+
+    // inside panel
+    JButton addStudentButton,addTeacherButton;
+    JTextField addStudent_sId,addStudent_sName;
+
     int screenWidth, screenHeight, buttonWidth, buttonHeight;
 
     public Gui() {
+        DB = new DataController();
         frame = new JFrame("School Administrator System");
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -28,10 +36,10 @@ public class Gui implements ActionListener {
         buttonWidth = screenWidth / 10;
         buttonHeight = screenHeight / 25;
 
-        // Button
+        // Menu Buttons
         buttonInit();
 
-        // panel
+        // panels
         addStudentPanelInit();
         viewStudentPanelInit();
         addTeacherPanelInit();
@@ -131,12 +139,12 @@ public class Gui implements ActionListener {
         addstudentPnl.add(sIdLable, constraints);
 
         constraints.gridx = 1;
-        JTextField sId = new JTextField("Please enter student");
-        sId.setPreferredSize(sId.getPreferredSize());
-        sId.setText("");
-        sId.setFont(new Font("Serif", Font.PLAIN, 14));
-        sId.setSize(300, 100);
-        addstudentPnl.add(sId, constraints);
+        addStudent_sId = new JTextField("Please enter student");
+        addStudent_sId.setPreferredSize(addStudent_sId.getPreferredSize());
+        addStudent_sId.setText("");
+        addStudent_sId.setFont(new Font("Serif", Font.PLAIN, 14));
+        addStudent_sId.setSize(300, 100);
+        addstudentPnl.add(addStudent_sId, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -146,12 +154,12 @@ public class Gui implements ActionListener {
         addstudentPnl.add(sNameLable, constraints);
 
         constraints.gridx = 1;
-        JTextField sName = new JTextField("Enter student name");
-        sName.setPreferredSize(sId.getPreferredSize());
-        sName.setText("");
-        sName.setFont(new Font("Serif", Font.PLAIN, 14));
-        sName.setSize(300, 100);
-        addstudentPnl.add(sName, constraints);
+        addStudent_sName = new JTextField("Enter student name");
+        addStudent_sName.setPreferredSize(addStudent_sId.getPreferredSize());
+        addStudent_sName.setText("");
+        addStudent_sName.setFont(new Font("Serif", Font.PLAIN, 14));
+        addStudent_sName.setSize(300, 100);
+        addstudentPnl.add(addStudent_sName, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 2;
@@ -162,7 +170,7 @@ public class Gui implements ActionListener {
 
         constraints.gridx = 1;
         JComboBox subjectlistbox = new JComboBox(subjectList);
-        subjectlistbox.setPreferredSize(sId.getPreferredSize());
+        subjectlistbox.setPreferredSize(addStudent_sId.getPreferredSize());
         subjectlistbox.setFont(new Font("Serif", Font.PLAIN, 14));
         subjectlistbox.setSize(300, 100);
         addstudentPnl.add(subjectlistbox, constraints);
@@ -171,10 +179,13 @@ public class Gui implements ActionListener {
         constraints.gridy = 3;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-        JButton addStudentButton = new JButton("Add Student");
-        sName.setFont(new Font("Serif", Font.PLAIN, 14));
-        sName.setSize(300, 30);
-        sName.setLocation(500, 30);
+        addStudentButton = new JButton("Add Student");
+        addStudent_sName.setFont(new Font("Serif", Font.PLAIN, 14));
+        addStudent_sName.setSize(300, 30);
+        addStudent_sName.setLocation(500, 30);
+
+        addStudentButton.addActionListener(this);      //-------------- add student button
+
         addstudentPnl.add(addStudentButton, constraints);
 
         // set border for the panel
@@ -403,7 +414,7 @@ public class Gui implements ActionListener {
         constraints.gridx = 1;
         JTextField sName = new JTextField("Enter teacher name");
         sName.setPreferredSize(sId.getPreferredSize());
-        sName.setText("The Greate Dishant");
+        sName.setText("");
         sId.setEditable(false);
         sName.setFont(new Font("Serif", Font.PLAIN, 14));
         sName.setSize(300, 100);
@@ -427,7 +438,7 @@ public class Gui implements ActionListener {
         constraints.gridy = 3;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-        JButton addTeacherButton = new JButton("View Teacher");
+        addTeacherButton = new JButton("View Teacher");
         addTeacherButton.setFont(new Font("Serif", Font.PLAIN, 14));
         addTeacherButton.setSize(300, 30);
         addTeacherButton.setLocation(500, 30);
@@ -608,6 +619,31 @@ public class Gui implements ActionListener {
         } else if (e.getSource() == assignStudentToCourse) {
             hidePanel();
             assignStudentToCoursePnl.setVisible(true);
+        }
+        // add student Panel --------------------
+         else if (e.getSource() == addStudentButton) {
+            addStudentSubmit();
+
+        }
+
+
+    }
+
+    private void addStudentSubmit() {
+        if(addStudent_sId.getText() != "" && addStudent_sName.getText() != "")
+        {
+            if(addStudent_sId.getText().matches("^[0-9]*"))
+            {
+                DB.addStudent(addStudent_sId.getText(),addStudent_sName.getText(),"Maths;Science;States");
+            }
+            else
+            {
+                // -----  Student id must be only number
+            }
+        }
+        else
+        {
+            //------- all field mandatory
         }
     }
 
