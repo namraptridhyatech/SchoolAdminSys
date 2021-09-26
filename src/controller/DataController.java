@@ -1,11 +1,10 @@
-package GUI;
+package controller;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static GUI.UtilityClass.*;
+import static util.UtilityClass.*;
 
 public class DataController {
 
