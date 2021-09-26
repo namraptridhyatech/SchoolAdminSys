@@ -12,15 +12,12 @@ public class DataController {
     BufferedReader bufferedReader;
     File file;
 
-    public DataController()
-    {
+    public DataController() {
         file = new File("./src/masterFile.txt");
-
 
     }
 
-    public void readFile()
-    {
+    public void readFile() {
 
         try {
             FileReader reader = new FileReader(file);
@@ -32,8 +29,7 @@ public class DataController {
                     System.out.println(line);
                 }
             }
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
             try {
                 reader.close();
             } catch (IOException e) {
@@ -48,34 +44,31 @@ public class DataController {
         }
     }
 
-    public boolean checkStudent(String studentID)
-    {
-        boolean isStudentAvailable=false;
+    public boolean checkStudent(String studentID) {
+        boolean isStudentAvailable = false;
         try {
 
             FileReader reader = new FileReader(file);
             bufferedReader = new BufferedReader(reader);
             String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    String[] student = line.split("@");
-                    if(student[0].equals("Student"))
-                    {
-                        String[] studentdata = student[1].split(":");
-                        if(studentID.equals(studentdata[0]))
-                        {
-                            isStudentAvailable=true;
-                            break;
-                        }
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] student = line.split("@");
+                if (student[0].equals("Student")) {
+                    String[] studentdata = student[1].split(":");
+                    if (studentID.equals(studentdata[0])) {
+                        isStudentAvailable = true;
+                        break;
                     }
-                    if(isStudentAvailable)break;
                 }
+                if (isStudentAvailable)
+                    break;
+            }
             try {
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
             try {
                 reader.close();
             } catch (IOException e) {
@@ -86,35 +79,31 @@ public class DataController {
         return isStudentAvailable;
     }
 
-
-    public boolean checkTeacher(String studentID)
-    {
-        boolean isteacherAvailable=false;
+    public boolean checkTeacher(String studentID) {
+        boolean isteacherAvailable = false;
         try {
 
             FileReader reader = new FileReader(file);
             bufferedReader = new BufferedReader(reader);
             String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    String[] teacher = line.split("@");
-                    if(teacher[0].equals("Teacher"))
-                    {
-                        String[] studentdata = teacher[1].split(":");
-                        if(studentID.equals(studentdata[0]))
-                        {
-                            isteacherAvailable=true;
-                            break;
-                        }
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] teacher = line.split("@");
+                if (teacher[0].equals("Teacher")) {
+                    String[] studentdata = teacher[1].split(":");
+                    if (studentID.equals(studentdata[0])) {
+                        isteacherAvailable = true;
+                        break;
                     }
-                    if(isteacherAvailable)break;
                 }
+                if (isteacherAvailable)
+                    break;
+            }
             try {
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
             try {
                 reader.close();
             } catch (IOException e) {
@@ -125,12 +114,13 @@ public class DataController {
         return isteacherAvailable;
     }
 
-    public void addStudent(String studentID,String studentFullName,String listOfCourse){
+    public void addStudent(String studentID, String studentFullName, String listOfCourse) {
         try {
             FileWriter writer = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            bufferedWriter.write("Student@"+studentID+":"+studentFullName+":"+listOfCourse);
+            bufferedWriter.write(
+                    "Student@" + studentID + ":" + studentFullName + ":" + listOfCourse + "attandence:90%;grade:A++");
             bufferedWriter.newLine();
 
             bufferedWriter.close();
@@ -140,29 +130,28 @@ public class DataController {
         printConsole("Add student : Confirm...");
     }
 
-    public void addTeacher(String teacherID,String teacherFullName,String listOfCourse)
-    {
+    public void addTeacher(String teacherID, String teacherFullName, String listOfCourse) {
         try {
             FileWriter writer = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            bufferedWriter.write("Teacher@"+teacherID+":"+teacherFullName+":"+listOfCourse);
+            bufferedWriter.write("Teacher@" + teacherID + ":" + teacherFullName + ":" + listOfCourse);
             bufferedWriter.newLine();
 
             bufferedWriter.close();
-        } catch (IOException e) 
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         printConsole("Add teacher : Confirm...");
     }
 
-    public void addCourse(String CourseID, String courseName, String startDate, String endDate,String preRequisite){
+    public void addCourse(String CourseID, String courseName, String startDate, String endDate, String preRequisite) {
         try {
             FileWriter writer = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-            bufferedWriter.write("Course@"+CourseID+":"+courseName+":"+startDate+":"+endDate+":"+preRequisite);
+            bufferedWriter.write(
+                    "Course@" + CourseID + ":" + courseName + ":" + startDate + ":" + endDate + ":" + preRequisite);
             bufferedWriter.newLine();
 
             bufferedWriter.close();
@@ -179,27 +168,27 @@ public class DataController {
             FileReader reader = new FileReader(file);
             bufferedReader = new BufferedReader(reader);
             String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    String[] Course = line.split("@");
-                    if(Course[0].equals("Course"))
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] Course = line.split("@");
+                if (Course[0].equals("Course")) {
+                    String[] Variable = Course[1].split(":");
+                    // printConsole(Variable[3]);
+                    String[] EDate = Variable[3].split("-"); // date format : DD-MM-YYYY
+                    if (Integer.parseInt(EDate[0]) < CurrentDay() && Integer.parseInt(EDate[1]) <= CurrentMonth()
+                            && Integer.parseInt(EDate[2]) <= CurrentYear())
+                        ;
                     {
-                        String[] Variable = Course[1].split(":");
-                        //printConsole(Variable[3]);
-                        String[] EDate = Variable[3].split("-"); // date format : DD-MM-YYYY
-                        if(Integer.parseInt(EDate[0]) < CurrentDay() && Integer.parseInt(EDate[1]) <= CurrentMonth() && Integer.parseInt(EDate[2]) <= CurrentYear());
-                        {
-                            list.add(Variable[0]+":"+Variable[1]);
-                            //printConsole("Filtered Past course : "+line);
-                        }
+                        list.add(Variable[0] + ":" + Variable[1]);
+                        // printConsole("Filtered Past course : "+line);
                     }
                 }
+            }
             try {
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
             try {
                 reader.close();
             } catch (IOException e) {
@@ -210,11 +199,9 @@ public class DataController {
         return list;
     }
 
-    
     // common message print gateway
-    public static void printConsole(String msg){
+    public static void printConsole(String msg) {
         System.out.println(msg);
     }
-
 
 }
