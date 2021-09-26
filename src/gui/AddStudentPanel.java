@@ -133,7 +133,7 @@ public class AddStudentPanel extends JPanel implements ActionListener {
         studentFullName = addStudent_sName.getText().trim();
         ListofCourse = "";
 
-        if (!studentID.equals("") || !studentFullName.equals("")) {
+        if (!studentID.equals("") && !studentFullName.equals("")) {
             if (studentID.matches("^[0-9]*")) {
 
                 if (DB.checkStudent(studentID)) {

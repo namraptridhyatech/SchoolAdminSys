@@ -140,6 +140,23 @@ public class DataController {
         printConsole("Add student : Confirm...");
     }
 
+    public void addTeacher(String teacherID,String teacherFullName,String listOfCourse)
+    {
+        try {
+            FileWriter writer = new FileWriter(file, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(writer);
+
+            bufferedWriter.write("Teacher@"+teacherID+":"+teacherFullName+":"+listOfCourse);
+            bufferedWriter.newLine();
+
+            bufferedWriter.close();
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+        printConsole("Add teacher : Confirm...");
+    }
+
     public void addCourse(String CourseID, String courseName, String startDate, String endDate,String preRequisite){
         try {
             FileWriter writer = new FileWriter(file, true);
@@ -193,6 +210,7 @@ public class DataController {
         return list;
     }
 
+    
     // common message print gateway
     public static void printConsole(String msg){
         System.out.println(msg);
