@@ -6,16 +6,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ViewStudentPanel extends JPanel implements ActionListener {
     DataController DB;
     int screenWidth, screenHeight, buttonWidth;
     public JComboBox<String> studentIdDropdown;
     public JButton viewStudentButton;
-    String[] studentIdList = { "1", "2", "3", "4" };
+    List<String> studentIdList ;
 
     public ViewStudentPanel() {
         DB = new DataController();
+        studentIdList = DB.listOfStudentIds();
         setLayout(new GridBagLayout());
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = screenSize.width;
@@ -45,7 +47,12 @@ public class ViewStudentPanel extends JPanel implements ActionListener {
         add(sIdLabel, constraints);
 
         constraints.gridx = 1;
-        studentIdDropdown = new JComboBox<>(studentIdList);
+        studentIdDropdown = new JComboBox<>();
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+        for (String s : studentIdList) {
+            comboBoxModel.addElement(s);
+        }
+        studentIdDropdown.setModel(comboBoxModel);
         studentIdDropdown.setPrototypeDisplayValue("Select student");
         add(studentIdDropdown, constraints);
 
@@ -68,6 +75,8 @@ public class ViewStudentPanel extends JPanel implements ActionListener {
         viewStudent();
     }
     private void viewStudent() {
-        System.out.println("View Student");
+        String studentDetails = DB.fetchStudentById(String.valueOf(studentIdDropdown.getSelectedItem()));
+        System.out.println("View Student" + studentDetails);
+
     }
 }

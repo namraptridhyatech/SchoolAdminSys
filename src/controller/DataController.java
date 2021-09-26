@@ -2,9 +2,11 @@ package controller;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import util.UtilityClass.*;
+
+import static util.UtilityClass.*;
 
 public class DataController {
 
@@ -106,7 +108,6 @@ public class DataController {
                             break;
                         }
                     }
-                    if(isteacherAvailable)break;
                 }
             try {
                 reader.close();
@@ -125,7 +126,7 @@ public class DataController {
         return isteacherAvailable;
     }
 
-    public void addStudent(String studentID,String studentFullName,String listOfCourse){
+    public void addStudent(String studentID, String studentFullName, StringBuilder listOfCourse){
         try {
             FileWriter writer = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
@@ -173,7 +174,7 @@ public class DataController {
     }
 
     public List<String> listOfPastCourse() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
 
             FileReader reader = new FileReader(file);
@@ -210,7 +211,98 @@ public class DataController {
         return list;
     }
 
-    
+    public List<String> listOfCourse() {
+        List<String> list = new ArrayList<>();
+        try {
+            FileReader reader = new FileReader(file);
+            bufferedReader = new BufferedReader(reader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] Course = line.split("@");
+                if(Course[0].equals("Course"))
+                {
+                    String[] Variable = Course[1].split(":");
+                    //printConsole(Variable[3]);
+                    list.add(Variable[1]);
+                }
+            }
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }catch (Exception ex)
+        {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            printConsole(ex.getMessage());
+        }
+        return list;
+    }
+
+    public List<String> listOfStudentIds() {
+        List<String> list = new ArrayList<>();
+        try {
+            FileReader reader = new FileReader(file);
+            bufferedReader = new BufferedReader(reader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] Student = line.split("@");
+                if(Student[0].equals("Student"))
+                {
+                    String[] Variable = Student[1].split(":");
+                    //printConsole(Variable[3]);
+                    list.add(Variable[0]);
+                }
+            }
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }catch (Exception ex)
+        {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            printConsole(ex.getMessage());
+        }
+        return list;
+    }
+
+    public String fetchStudentById(String studentId){
+        StringBuilder studentDetails = new StringBuilder();
+        try{
+            FileReader reader = new FileReader(file);
+            bufferedReader = new BufferedReader(reader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] Student = line.split("@");
+                if(Student[0].equals("Student"))
+                {
+                    String[] Variable = Student[1].split(":");
+                    if(Variable[0].equals(studentId)){
+                        for (String value: Variable){
+                            studentDetails.append(value);
+                        }
+                    }
+                }
+            }
+        }catch (Exception ex) {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            printConsole(ex.getMessage());
+        }
+        return studentDetails.toString();
+    }
     // common message print gateway
     public static void printConsole(String msg){
         System.out.println(msg);

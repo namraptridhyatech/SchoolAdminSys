@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 
 public class AddCoursePanel extends JPanel implements ActionListener {
     int screenWidth, screenHeight, buttonWidth;
-    public JTextField addStudent_sId,addStudent_sName;
-    public JComboBox<String> addStudent_subjects;
+    public JTextField courseNameTxtField,courseStartDateTxtField, courseEndDateTxtField;
+    public JList<String> prerequisiteCourseBox;
     public JButton addCourseButton;
     DataController DB;
 
@@ -47,10 +47,8 @@ public class AddCoursePanel extends JPanel implements ActionListener {
         add(courseNameLabel, constraints);
 
         constraints.gridx = 1;
-        constraints.gridwidth = GridBagConstraints.RELATIVE;
-        JTextField courseNameTxtField = new JTextField("");
+        courseNameTxtField = new JTextField("");
         courseNameTxtField.setColumns(12);
-        courseNameTxtField.setPreferredSize(courseNameTxtField.getPreferredSize());
         courseNameTxtField.setFont(new Font("Serif", Font.PLAIN, 14));
         courseNameTxtField.setSize(300, 100);
         add(courseNameTxtField, constraints);
@@ -64,8 +62,7 @@ public class AddCoursePanel extends JPanel implements ActionListener {
         add(courseStartDateLabel, constraints);
 
         constraints.gridx = 1;
-        JTextField courseStartDateTxtField = new JTextField("");
-        courseStartDateTxtField.setPreferredSize(courseStartDateTxtField.getPreferredSize());
+        courseStartDateTxtField = new JTextField("");
         courseStartDateTxtField.setColumns(12);
         courseStartDateTxtField.setFont(new Font("Serif", Font.PLAIN, 14));
         courseStartDateTxtField.setSize(300, 100);
@@ -80,8 +77,7 @@ public class AddCoursePanel extends JPanel implements ActionListener {
         add(courseEndDateLabel, constraints);
 
         constraints.gridx = 1;
-        JTextField courseEndDateTxtField = new JTextField("");
-        courseEndDateTxtField.setPreferredSize(courseEndDateTxtField.getPreferredSize());
+        courseEndDateTxtField = new JTextField("");
         courseEndDateTxtField.setColumns(12);
         courseEndDateTxtField.setFont(new Font("Serif", Font.PLAIN, 14));
         courseEndDateTxtField.setSize(300, 100);
@@ -96,7 +92,7 @@ public class AddCoursePanel extends JPanel implements ActionListener {
         add(prerequisiteCourses, constraints);
 
         constraints.gridx = 1;
-        JList<String> prerequisiteCourseBox = new JList<>(subjectList);
+        prerequisiteCourseBox = new JList<>(subjectList);
         prerequisiteCourseBox.setPreferredSize(prerequisiteCourseBox.getPreferredSize());
         prerequisiteCourseBox.setFixedCellHeight(15);
         prerequisiteCourseBox.setFixedCellWidth(100);
@@ -108,13 +104,18 @@ public class AddCoursePanel extends JPanel implements ActionListener {
         constraints.gridy = 4;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-        JButton addCourseButton = new JButton("Add Course");
+        addCourseButton = new JButton("Add Course");
         addCourseButton.addActionListener(this);
+
         setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Add Course"));
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-
+        addCourseSubmit();
+    }
+    private void addCourseSubmit() {
+        DB.addCourse("2092","Advance Data Communication","12-6-2021","16-10-2021","None");
+        System.out.println("\nAns : " + DB.listOfPastCourse().toString());
     }
 }

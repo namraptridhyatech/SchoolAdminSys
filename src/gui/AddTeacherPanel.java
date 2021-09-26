@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class AddTeacherPanel extends JPanel implements ActionListener {
     DataController DB;
     int screenWidth, screenHeight, buttonWidth;
-    public JTextField addTeacher_teacherId, addTeacher_teacherName;
+    public JTextField teacherIdTxtField, teacherNameTxtField;
     public JButton addTeacherButton;
     public JLabel msgLable;
     String teacherID, teacherFullName, ListofCourse;
@@ -44,12 +44,12 @@ public class AddTeacherPanel extends JPanel implements ActionListener {
         add(teacherIdLable, constraints);
 
         constraints.gridx = 1;
-        addTeacher_teacherId = new JTextField("Please enter teacher");
-        addTeacher_teacherId.setPreferredSize(addTeacher_teacherId.getPreferredSize());
-        addTeacher_teacherId.setText("");
-        addTeacher_teacherId.setFont(new Font("Serif", Font.PLAIN, 14));
-        addTeacher_teacherId.setSize(300, 100);
-        add(addTeacher_teacherId, constraints);
+        teacherIdTxtField = new JTextField("Please enter teacher");
+        teacherIdTxtField.setPreferredSize(teacherIdTxtField.getPreferredSize());
+        teacherIdTxtField.setText("");
+        teacherIdTxtField.setFont(new Font("Serif", Font.PLAIN, 14));
+        teacherIdTxtField.setSize(300, 100);
+        add(teacherIdTxtField, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 1;
@@ -59,12 +59,12 @@ public class AddTeacherPanel extends JPanel implements ActionListener {
         add(sNameLable, constraints);
 
         constraints.gridx = 1;
-        addTeacher_teacherName = new JTextField("Enter teacher name");
-        addTeacher_teacherName.setPreferredSize(addTeacher_teacherName.getPreferredSize());
-        addTeacher_teacherName.setText("");
-        addTeacher_teacherName.setFont(new Font("Serif", Font.PLAIN, 14));
-        addTeacher_teacherName.setSize(300, 100);
-        add(addTeacher_teacherName, constraints);
+        teacherNameTxtField = new JTextField("Enter teacher name");
+        teacherNameTxtField.setPreferredSize(teacherNameTxtField.getPreferredSize());
+        teacherNameTxtField.setText("");
+        teacherNameTxtField.setFont(new Font("Serif", Font.PLAIN, 14));
+        teacherNameTxtField.setSize(300, 100);
+        add(teacherNameTxtField, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 2;
@@ -98,8 +98,8 @@ public class AddTeacherPanel extends JPanel implements ActionListener {
     }
 
     private void addTeacherSubmit() {
-        teacherID = addTeacher_teacherId.getText().trim();
-        teacherFullName = addTeacher_teacherName.getText().trim();
+        teacherID = teacherIdTxtField.getText().trim();
+        teacherFullName = teacherNameTxtField.getText().trim();
         ListofCourse = "";
 
         if (!teacherID.equals("") && !teacherFullName.equals("")) {

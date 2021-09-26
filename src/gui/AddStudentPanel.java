@@ -6,20 +6,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 public class AddStudentPanel extends JPanel implements ActionListener {
     int screenWidth, screenHeight, buttonWidth;
     public JTextField addStudent_sId, addStudent_sName;
-    public JComboBox<String> addStudent_subjects;
     public JButton addStudentButton;
     public JLabel msgLable;
     JList<String> subjecttListDropdown;
     DataController DB;
-    String studentID, studentFullName, ListofCourse;
-    String[] subjectList = { "Maths", "Java", "Science", "English" };
+    String studentID, studentFullName;
+    List<String> subjectList, ListofCourse;
 
     public AddStudentPanel() {
         DB = new DataController();
+        subjectList = DB.listOfCourse();
         setLayout(new GridBagLayout());
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = screenSize.width;
@@ -80,23 +82,19 @@ public class AddStudentPanel extends JPanel implements ActionListener {
 
         constraints.gridx = 1;
 
-        subjecttListDropdown = new JList<>(subjectList);
+
+        subjecttListDropdown = new JList<>();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (String s : subjectList) {
+            listModel.addElement(s);
+        }
+        subjecttListDropdown.setModel(listModel);
         subjecttListDropdown.setPreferredSize(subjecttListDropdown.getPreferredSize());
         subjecttListDropdown.setFixedCellHeight(15);
-        subjecttListDropdown.setFixedCellWidth(100);
         subjecttListDropdown.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         subjecttListDropdown.setVisibleRowCount(4);
         add(new JScrollPane(subjecttListDropdown), constraints);
 
-        
-
-
-
-        addStudent_subjects = new JComboBox<>(subjectList);
-        addStudent_subjects.setPreferredSize(addStudent_sId.getPreferredSize());
-        addStudent_subjects.setFont(new Font("Serif", Font.PLAIN, 14));
-        addStudent_subjects.setSize(300, 100);
-        add(addStudent_subjects, constraints);
 
         constraints.gridx = 0;
         constraints.gridy = 3;
@@ -129,25 +127,24 @@ public class AddStudentPanel extends JPanel implements ActionListener {
     }
 
     private void addStudentSubmit() {
+        StringBuilder courseString = new StringBuilder();
         studentID = addStudent_sId.getText().trim();
         studentFullName = addStudent_sName.getText().trim();
-        ListofCourse = "";
-
         if (!studentID.equals("") && !studentFullName.equals("")) {
             if (studentID.matches("^[0-9]*")) {
 
                 if (DB.checkStudent(studentID)) {
                     msgLable.setText("Student id already exist.");
                 } else {
-                    ListofCourse = (String) addStudent_subjects.getSelectedItem();
-                    for (String s : subjectList) {
-                        if (subjectList.equals(s)) {
-                            ListofCourse = subjectList + ";";
+                    ListofCourse = subjecttListDropdown.getSelectedValuesList();
+                    for (int i = 0; i < ListofCourse.size(); i++) {
+                        if (ListofCourse.size() == i + 1) {
+                            courseString.append(ListofCourse.get(i));
+                        } else {
+                            courseString.append(ListofCourse.get(i)).append(";");
                         }
                     }
-
-                    DB = new DataController();
-                    DB.addStudent(studentID, studentFullName, ListofCourse);
+                    DB.addStudent(studentID, studentFullName, courseString);
                     msgLable.setText("Student Added Successfully.");
                 }
 
@@ -155,7 +152,7 @@ public class AddStudentPanel extends JPanel implements ActionListener {
                 msgLable.setText("Student id must be only number.");
             }
         } else {
-            msgLable.setText("All fields are mendetory.");
+            msgLable.setText("All fields are mandatory.");
         }
     }
 }

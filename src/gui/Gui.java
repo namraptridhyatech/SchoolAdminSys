@@ -8,20 +8,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Gui implements ActionListener {
+    DataController DB;
+
     AddStudentPanel addStudentPnl;
     ViewStudentPanel viewStudentPnl;
     AddTeacherPanel addTeacherPnl;
     ViewTeacherPanel viewTeacherPnl;
-    DataController DB;
+    AddCoursePanel addCoursePnl;
+    ViewCoursePanel viewCoursePnl;
+    AssignTeacherToCoursePanel assignTeacherToCoursePnl;
+    AssignStudentsToCoursePanel assignStudentsToCoursePnl;
 
     JFrame frame;
-    JPanel  addCoursePnl, viewCoursePnl,
-            assignTeacherToCoursePnl, assignStudentToCoursePnl;
     JButton addStudent, viewStudent, addTeacher, viewTeacher, addCourse, viewCourse, assignTeacherToCourse,
             assignStudentToCourse;
 
-    // inside panel
-    JButton addTeacherButton;
 
     int screenWidth, screenHeight, buttonWidth, buttonHeight;
 
@@ -32,6 +33,11 @@ public class Gui implements ActionListener {
         viewStudentPnl = new ViewStudentPanel();
         addTeacherPnl = new AddTeacherPanel();
         viewTeacherPnl = new ViewTeacherPanel();
+        addCoursePnl = new AddCoursePanel();
+        viewCoursePnl = new ViewCoursePanel();
+        assignTeacherToCoursePnl = new AssignTeacherToCoursePanel();
+        assignStudentsToCoursePnl = new AssignStudentsToCoursePanel();
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = screenSize.width;
         screenHeight = screenSize.height;
@@ -40,12 +46,6 @@ public class Gui implements ActionListener {
 
         // Menu Buttons
         buttonInit();
-
-        // panels
-        addCoursePanelInit();
-        viewCoursePanelInit();
-        assignTeacherToCoursePanelInit();
-        assignStudentToCoursePanelInit();
 
         frame.setSize(screenWidth, screenHeight);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -120,149 +120,10 @@ public class Gui implements ActionListener {
         frame.add(viewStudentPnl);
         frame.add(addTeacherPnl);
         frame.add(viewTeacherPnl);
-    }
-
-
-    public void addCoursePanelInit() {
-        addCoursePnl = new JPanel(new GridBagLayout());
-        int x = screenWidth - (screenWidth / 8);
-        int y = screenHeight - (screenHeight / 4);
-        addCoursePnl.setBounds(100, 100, x, y);
-        addCoursePnl.setBackground(Color.lightGray);
-
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-
-        // add components to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        JLabel sIdLable = new JLabel("Course ID");
-        sIdLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sIdLable.setSize(300, 30);
-        sIdLable.setLocation(300, 30);
-        addCoursePnl.add(sIdLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField sId = new JTextField("Please enter teacher");
-        sId.setPreferredSize(sId.getPreferredSize());
-        sId.setText("3453453");
-        sId.setEditable(false);
-        sId.setFont(new Font("Serif", Font.PLAIN, 14));
-        sId.setSize(300, 100);
-        addCoursePnl.add(sId, constraints);
-
-        // set border for the panel
-        addCoursePnl.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "add Course"));
-
         frame.add(addCoursePnl);
-    }
-
-    public void viewCoursePanelInit() {
-        viewCoursePnl = new JPanel(new GridBagLayout());
-        int x = screenWidth - (screenWidth / 8);
-        int y = screenHeight - (screenHeight / 4);
-        viewCoursePnl.setBounds(100, 100, x, y);
-        viewCoursePnl.setBackground(Color.lightGray);
-
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-
-        // add components to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        JLabel sIdLable = new JLabel("Course ID");
-        sIdLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sIdLable.setSize(300, 30);
-        sIdLable.setLocation(300, 30);
-        viewCoursePnl.add(sIdLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField sId = new JTextField("Please enter teacher");
-        sId.setPreferredSize(sId.getPreferredSize());
-        sId.setText("3453453");
-        sId.setEditable(false);
-        sId.setFont(new Font("Serif", Font.PLAIN, 14));
-        sId.setSize(300, 100);
-        viewCoursePnl.add(sId, constraints);
-
-        // set border for the panel
-        viewCoursePnl.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "view Course"));
-
         frame.add(viewCoursePnl);
-    }
-
-    public void assignTeacherToCoursePanelInit() {
-        assignTeacherToCoursePnl = new JPanel(new GridBagLayout());
-        int x = screenWidth - (screenWidth / 8);
-        int y = screenHeight - (screenHeight / 4);
-        assignTeacherToCoursePnl.setBounds(100, 100, x, y);
-        assignTeacherToCoursePnl.setBackground(Color.lightGray);
-
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-
-        // add components to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        JLabel sIdLable = new JLabel("Course ID");
-        sIdLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sIdLable.setSize(300, 30);
-        sIdLable.setLocation(300, 30);
-        assignTeacherToCoursePnl.add(sIdLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField sId = new JTextField("Please enter teacher");
-        sId.setPreferredSize(sId.getPreferredSize());
-        sId.setText("3453453");
-        sId.setEditable(false);
-        sId.setFont(new Font("Serif", Font.PLAIN, 14));
-        sId.setSize(300, 100);
-        assignTeacherToCoursePnl.add(sId, constraints);
-
-        // set border for the panel
-        assignTeacherToCoursePnl
-                .setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Assign Teacher"));
-
         frame.add(assignTeacherToCoursePnl);
-    }
-
-    public void assignStudentToCoursePanelInit() {
-        assignStudentToCoursePnl = new JPanel(new GridBagLayout());
-        int x = screenWidth - (screenWidth / 8);
-        int y = screenHeight - (screenHeight / 4);
-        assignStudentToCoursePnl.setBounds(100, 100, x, y);
-        assignStudentToCoursePnl.setBackground(Color.lightGray);
-
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-
-        // add components to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        JLabel sIdLable = new JLabel("Course ID");
-        sIdLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sIdLable.setSize(300, 30);
-        sIdLable.setLocation(300, 30);
-        assignStudentToCoursePnl.add(sIdLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField sId = new JTextField("Please enter teacher");
-        sId.setPreferredSize(sId.getPreferredSize());
-        sId.setText("3453453");
-        sId.setEditable(false);
-        sId.setFont(new Font("Serif", Font.PLAIN, 14));
-        sId.setSize(300, 100);
-        assignStudentToCoursePnl.add(sId, constraints);
-
-        // set border for the panel
-        assignStudentToCoursePnl
-                .setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Assign Student"));
-
-        frame.add(assignStudentToCoursePnl);
+        frame.add(assignStudentsToCoursePnl);
     }
 
     @Override
@@ -291,18 +152,10 @@ public class Gui implements ActionListener {
             assignTeacherToCoursePnl.setVisible(true);
         } else if (e.getSource() == assignStudentToCourse) {
             hidePanel();
-            assignStudentToCoursePnl.setVisible(true);
+            assignStudentsToCoursePnl.setVisible(true);
         }
 
     }
-
-
-
-    private void addCourseSubmit() {
-                DB.addCourse("2092","Advance Data Communication","12-6-2021","16-10-2021","None");
-                System.out.println("\nAns : " + DB.listOfPastCourse().toString());
-    }
-
     public void hidePanel() {
         addStudentPnl.setVisible(false);
         viewStudentPnl.setVisible(false);
@@ -311,7 +164,7 @@ public class Gui implements ActionListener {
         addCoursePnl.setVisible(false);
         viewCoursePnl.setVisible(false);
         assignTeacherToCoursePnl.setVisible(false);
-        assignStudentToCoursePnl.setVisible(false);
+        assignStudentsToCoursePnl.setVisible(false);
     }
 
 }

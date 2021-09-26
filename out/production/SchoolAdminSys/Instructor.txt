@@ -3,6 +3,8 @@ File Format
 
 Student@studentID:FullName:CourseName1;CourseName2;......}
 
+Teacher@teacherID:FullName:CourseName1;CourseName2;......
+
 Course@courseId:courseName:startDate:endDate:PreRequisite
 
 StudentCourse:courseID:studentId
