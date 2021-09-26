@@ -9,10 +9,12 @@ import java.awt.event.ActionListener;
 
 public class Gui implements ActionListener {
     AddStudentPanel addStudentPnl;
+    ViewStudentPanel viewStudentPnl;
+    AddTeacherPanel addTeacherPnl;
     DataController DB;
 
     JFrame frame;
-    JPanel  viewStudentPnl, addTeacherPnl, viewTeacherPnl, addCoursePnl, viewCoursePnl,
+    JPanel  viewTeacherPnl, addCoursePnl, viewCoursePnl,
             assignTeacherToCoursePnl, assignStudentToCoursePnl;
     JButton addStudent, viewStudent, addTeacher, viewTeacher, addCourse, viewCourse, assignTeacherToCourse,
             assignStudentToCourse;
@@ -26,7 +28,8 @@ public class Gui implements ActionListener {
         DB = new DataController();
         frame = new JFrame("School Administrator System");
         addStudentPnl = new AddStudentPanel();
-
+        viewStudentPnl = new ViewStudentPanel();
+        addTeacherPnl = new AddTeacherPanel();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = screenSize.width;
         screenHeight = screenSize.height;
@@ -37,8 +40,6 @@ public class Gui implements ActionListener {
         buttonInit();
 
         // panels
-        viewStudentPanelInit();
-        addTeacherPanelInit();
         viewTeacherPanelInit();
         addCoursePanelInit();
         viewCoursePanelInit();
@@ -115,184 +116,7 @@ public class Gui implements ActionListener {
     // panel init
     private void createComponents() {
         frame.add(addStudentPnl);
-    }
-    public void viewStudentPanelInit() {
-        viewStudentPnl = new JPanel(new GridBagLayout());
-        int x = screenWidth - (screenWidth / 8);
-        int y = screenHeight - (screenHeight / 4);
-        viewStudentPnl.setBounds(100, 100, x, y);
-        viewStudentPnl.setBackground(Color.lightGray);
-
-        String subjectList[] = { "Maths", "Java", "Science", "English" };
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-
-        // add components to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        JLabel sIdLable = new JLabel("Student ID");
-        sIdLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sIdLable.setSize(300, 30);
-        sIdLable.setLocation(300, 30);
-        viewStudentPnl.add(sIdLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField sId = new JTextField("Displaying student id ");
-        sId.setPreferredSize(sId.getPreferredSize());
-        sId.setText("3456789");
-        sId.setFont(new Font("Serif", Font.PLAIN, 14));
-        sId.setSize(300, 100);
-        sId.setEditable(false);
-        viewStudentPnl.add(sId, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        JLabel sNameLable = new JLabel("Student Name");
-        sNameLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sNameLable.setSize(300, 100);
-        viewStudentPnl.add(sNameLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField sName = new JTextField("Dishant Desai   ");
-        sName.setPreferredSize(sId.getPreferredSize());
-        sId.setEditable(false);
-        sName.setEditable(false);
-        sName.setFont(new Font("Serif", Font.PLAIN, 14));
-        sName.setSize(300, 100);
-        viewStudentPnl.add(sName, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        JLabel postSubjectLable = new JLabel("Selected Subject");
-        postSubjectLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        postSubjectLable.setSize(300, 100);
-        viewStudentPnl.add(postSubjectLable, constraints);
-
-        constraints.gridx = 1;
-        JComboBox subjectlistbox = new JComboBox(subjectList);
-        subjectlistbox.setPreferredSize(sId.getPreferredSize());
-        subjectlistbox.setFont(new Font("Serif", Font.PLAIN, 14));
-        subjectlistbox.setSize(300, 100);
-        viewStudentPnl.add(subjectlistbox, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        JLabel avgGradeLable = new JLabel("Student Grade");
-        avgGradeLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        avgGradeLable.setSize(300, 100);
-        viewStudentPnl.add(avgGradeLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField avgGrade = new JTextField("  A++   ");
-        avgGrade.setPreferredSize(sId.getPreferredSize());
-        avgGrade.setEditable(false);
-        avgGrade.setFont(new Font("Serif", Font.PLAIN, 14));
-        avgGrade.setSize(300, 100);
-        viewStudentPnl.add(avgGrade, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 4;
-        JLabel attendanceLable = new JLabel("Student Attandence");
-        attendanceLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        attendanceLable.setSize(300, 100);
-        viewStudentPnl.add(attendanceLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField attendance = new JTextField("  90 %    ");
-        attendance.setPreferredSize(sId.getPreferredSize());
-        attendance.setEditable(false);
-        attendance.setFont(new Font("Serif", Font.PLAIN, 14));
-        attendance.setSize(300, 100);
-        viewStudentPnl.add(attendance, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 5;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        JButton addStudentButton = new JButton("View Student");
-        sName.setFont(new Font("Serif", Font.PLAIN, 14));
-        sName.setSize(300, 30);
-        sName.setLocation(500, 30);
-        viewStudentPnl.add(addStudentButton, constraints);
-
-        // set border for the panel
-        viewStudentPnl.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "View Student"));
-
         frame.add(viewStudentPnl);
-    }
-
-    public void addTeacherPanelInit() {
-        addTeacherPnl = new JPanel(new GridBagLayout());
-        int x = screenWidth - (screenWidth / 8);
-        int y = screenHeight - (screenHeight / 4);
-        addTeacherPnl.setBounds(100, 100, x, y);
-        addTeacherPnl.setBackground(Color.lightGray);
-
-        String subjectList[] = { "Maths", "Java", "Science", "English" };
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-
-        // add components to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        JLabel sIdLable = new JLabel("Teacher ID");
-        sIdLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sIdLable.setSize(300, 30);
-        sIdLable.setLocation(300, 30);
-        addTeacherPnl.add(sIdLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField sId = new JTextField("Please enter teacher");
-        sId.setPreferredSize(sId.getPreferredSize());
-        sId.setText("");
-        sId.setFont(new Font("Serif", Font.PLAIN, 14));
-        sId.setSize(300, 100);
-        addTeacherPnl.add(sId, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        JLabel sNameLable = new JLabel("Teacher Name");
-        sNameLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        sNameLable.setSize(300, 100);
-        addTeacherPnl.add(sNameLable, constraints);
-
-        constraints.gridx = 1;
-        JTextField sName = new JTextField("Enter teacher name");
-        sName.setPreferredSize(sId.getPreferredSize());
-        sName.setText("");
-        sName.setFont(new Font("Serif", Font.PLAIN, 14));
-        sName.setSize(300, 100);
-        addTeacherPnl.add(sName, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        JLabel postSubjectLable = new JLabel("Select Subject");
-        postSubjectLable.setFont(new Font("Serif", Font.PLAIN, 14));
-        postSubjectLable.setSize(300, 100);
-        addTeacherPnl.add(postSubjectLable, constraints);
-
-        constraints.gridx = 1;
-        JComboBox subjectlistbox = new JComboBox(subjectList);
-        subjectlistbox.setPreferredSize(sId.getPreferredSize());
-        subjectlistbox.setFont(new Font("Serif", Font.PLAIN, 14));
-        subjectlistbox.setSize(300, 100);
-        addTeacherPnl.add(subjectlistbox, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        JButton addTeacherButton = new JButton("Add Teacher");
-        addTeacherButton.setFont(new Font("Serif", Font.PLAIN, 14));
-        addTeacherButton.setSize(300, 30);
-        addTeacherButton.setLocation(500, 30);
-        addTeacherPnl.add(addTeacherButton, constraints);
-
-        // set border for the panel
-        addTeacherPnl.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Add Teacher"));
-
         frame.add(addTeacherPnl);
     }
 

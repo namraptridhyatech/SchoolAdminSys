@@ -25,16 +25,16 @@ public class AddStudentPanel extends JPanel implements ActionListener {
         screenWidth = screenSize.width;
         screenHeight = screenSize.height;
         buttonWidth = screenWidth / 10;
-        createComponent();
-    }
 
-    private void createComponent() {
         int x = screenWidth - (screenWidth / 8);
         int y = screenHeight - (screenHeight / 4);
 
         setBounds(100, 100, x, y);
         setBackground(Color.lightGray);
+        createComponent();
+    }
 
+    private void createComponent() {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 10, 10, 10);
