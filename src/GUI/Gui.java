@@ -634,7 +634,9 @@ public class Gui implements ActionListener {
         {
             if(addStudent_sId.getText().matches("^[0-9]*"))
             {
-                DB.addStudent(addStudent_sId.getText(),addStudent_sName.getText(),"Maths;Science;States");
+                //DB.addStudent(addStudent_sId.getText(),addStudent_sName.getText(),"Maths;Science;States");
+                DB.addCourse("2092","Advance Data Communication","12-6-2021","16-10-2021","None");
+                System.out.println("\nAns : " + DB.listOfPastCourse().toString());
             }
             else
             {
@@ -645,6 +647,12 @@ public class Gui implements ActionListener {
         {
             //------- all field mandatory
         }
+    }
+
+    private void addCourseSubmit() {
+
+                DB.addCourse("2092","Advance Data Communication","12-6-2021","16-10-2021","None");
+                System.out.println("\nAns : " + DB.listOfPastCourse().toString());
     }
 
     public void hidePanel() {
