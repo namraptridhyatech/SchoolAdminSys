@@ -13,7 +13,7 @@ public class ViewStudentPanel extends JPanel implements ActionListener {
     int screenWidth, screenHeight, buttonWidth;
     public JComboBox<String> studentIdDropdown;
     public JButton viewStudentButton;
-    List<String> studentIdList ;
+    static List<String> studentIdList;
 
     public ViewStudentPanel() {
         DB = new DataController();
@@ -74,6 +74,7 @@ public class ViewStudentPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         viewStudent();
     }
+
     private void viewStudent() {
         String studentDetails = DB.fetchStudentById(String.valueOf(studentIdDropdown.getSelectedItem()));
         System.out.println("View Student" + studentDetails);
