@@ -7,3 +7,5 @@ Student@12344:Dishant:DataCommunication
 Teacher@1233:Tanishq:None
 Course@20210926231857:Drawing:12-11-2021:12-12-2021:None
 Course@20210926232041:Biology:12-11-2021:12-12-2021:English;Science
+Student@22:rr::attendance=90%:grade=A++
+Student@322323:Nppppp:DataCommunication;Advance Data Communication:attendance = 90%:grade = A++
