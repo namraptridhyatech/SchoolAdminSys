@@ -258,6 +258,36 @@ public class DataController {
         return list;
     }
 
+    public List<String> listOfTeacherIds() {
+        List<String> list = new ArrayList<>();
+        try {
+            FileReader reader = new FileReader(file);
+            bufferedReader = new BufferedReader(reader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] Student = line.split("@");
+                if (Student[0].equals("Teacher")) {
+                    String[] Variable = Student[1].split(":");
+                    // printConsole(Variable[3]);
+                    list.add(Variable[0]);
+                }
+            }
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception ex) {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            printConsole(ex.getMessage());
+        }
+        return list;
+    }
+
     public String fetchStudentById(String studentId) {
         StringBuilder studentDetails = new StringBuilder();
         try {
@@ -294,6 +324,42 @@ public class DataController {
             printConsole(ex.getMessage());
         }
         return studentDetails.toString();
+    }
+
+    public String fetchTeacherById(String teaherId) {
+        StringBuilder teacherDetails = new StringBuilder();
+        try {
+            FileReader reader = new FileReader(file);
+            bufferedReader = new BufferedReader(reader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] Student = line.split("@");
+                if (Student[0].equals("Teacher")) {
+                    String[] Variable = Student[1].split(":");
+                    if (Variable[0].equals(teaherId)) {
+                        int i = 0;
+                        for (String value : Variable) {
+                            if (i == 0) {
+                                teacherDetails.append("Teacher Id = " + value + "\n");
+                            } else if (i == 1) {
+                                teacherDetails.append("Teacher Name = " + value + "\n");
+                            } else if (i == 2) {
+                                teacherDetails.append("Teacher Subject = " + value + "\n");
+                            }
+                            i++;
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            printConsole(ex.getMessage());
+        }
+        return teacherDetails.toString();
     }
 
     // common message print gateway

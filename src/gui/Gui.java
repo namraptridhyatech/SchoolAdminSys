@@ -148,6 +148,15 @@ public class Gui implements ActionListener {
             addTeacherPnl.setVisible(true);
         } else if (e.getSource() == viewTeacher) {
             hidePanel();
+            viewTeacherPnl.remove(viewTeacherPnl.teacherIdDropdown);
+            ViewTeacherPanel v = new ViewTeacherPanel();
+            v.teacherIdList = DB.listOfTeacherIds();
+            DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+            for (String s : v.teacherIdList) {
+                comboBoxModel.addElement(s);
+            }
+            viewTeacherPnl.teacherIdDropdown.setModel(comboBoxModel);
+            viewTeacherPnl.add(viewTeacherPnl.teacherIdDropdown);
             viewTeacherPnl.setVisible(true);
         } else if (e.getSource() == addCourse) {
             hidePanel();
