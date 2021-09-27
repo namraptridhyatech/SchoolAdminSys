@@ -1,20 +1,25 @@
 package gui;
 
 import controller.DataController;
+import util.UtilityClass;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
+import static util.UtilityClass.*;
 
 public class AddCoursePanel extends JPanel implements ActionListener {
     int screenWidth, screenHeight, buttonWidth;
     public JTextField courseNameTxtField,courseStartDateTxtField, courseEndDateTxtField;
     public JList<String> prerequisiteCourseBox;
+    public JLabel msgLable;
     public JButton addCourseButton;
     DataController DB;
 
-    String subjectList[] = { "Maths", "Java", "Science", "English" };
+    String subjectList[] = { "None","Maths", "English", "Science", "Politics" };
     public AddCoursePanel() {
         DB = new DataController();
         setLayout(new GridBagLayout());
@@ -98,6 +103,7 @@ public class AddCoursePanel extends JPanel implements ActionListener {
         prerequisiteCourseBox.setFixedCellWidth(100);
         prerequisiteCourseBox.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         prerequisiteCourseBox.setVisibleRowCount(4);
+        prerequisiteCourseBox.setSelectedIndex(0);
         add(new JScrollPane(prerequisiteCourseBox), constraints);
 
         constraints.gridx = 0;
@@ -105,7 +111,17 @@ public class AddCoursePanel extends JPanel implements ActionListener {
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
         addCourseButton = new JButton("Add Course");
+        add(addCourseButton, constraints);
         addCourseButton.addActionListener(this);
+
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        msgLable = new JLabel("");
+        msgLable.setFont(new Font("Serif", Font.PLAIN, 14));
+        msgLable.setSize(500, 100);
+        add(msgLable, constraints);
 
         setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Add Course"));
     }
@@ -115,7 +131,47 @@ public class AddCoursePanel extends JPanel implements ActionListener {
         addCourseSubmit();
     }
     private void addCourseSubmit() {
-        DB.addCourse("2092","Advance Data Communication","12-6-2021","16-10-2021","None");
-        System.out.println("\nAns : " + DB.listOfPastCourse().toString());
+
+        if(!courseNameTxtField.getText().equals("") && !courseStartDateTxtField.getText().equals("") && !courseEndDateTxtField.getText().equals(""))
+        {
+            if(dateFormatCheck(courseStartDateTxtField.getText()) && dateFormatCheck(courseEndDateTxtField.getText()))
+            {
+                String response = dateRangeCheck(courseStartDateTxtField.getText(),courseEndDateTxtField.getText());
+                if(response.equals("Confirm"))
+                {
+                    List<String> items = prerequisiteCourseBox.getSelectedValuesList();
+                    String PreCourse = items.get(0);
+                    if(items.size() > 1)
+                        for(int i=1;i < items.size();i++)
+                        {
+                            PreCourse = PreCourse + ";" + items.get(i);
+                        }
+
+
+                    //Course@courseId:courseName:startDate:endDate:PreRequisite
+                    DB.addCourse(generateUniqueId(),courseNameTxtField.getText(),courseStartDateTxtField.getText(),courseEndDateTxtField.getText(),PreCourse);
+                    //System.out.println("\nAns : " + DB.listOfPastCourse().toString());
+                    msgLable.setText("Student Added Successfully.");
+                    msgLable.setForeground(Color.green);
+
+                }
+                else
+                {
+                    msgLable.setText(response);
+                    msgLable.setForeground(Color.red);
+                }
+            }
+            else
+            {
+                msgLable.setText("Date format must be like DD-MM-YYYY and Valid dates");
+                msgLable.setForeground(Color.red);
+            }
+        }
+        else
+        {
+            msgLable.setText("All filed must be filled!");
+            msgLable.setForeground(Color.red);
+        }
+
     }
 }
